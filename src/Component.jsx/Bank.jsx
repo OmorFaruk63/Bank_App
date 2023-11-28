@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "./Button";
-import ShowData from "./ShowData";
+// import ShowData from "./ShowData";
+import { useId } from "react";
 
 const Bank = () => {
   const [deposit, setDeposit] = useState("");
@@ -8,6 +9,26 @@ const Bank = () => {
   const [blanceMoney, setBlanceMoney] = useState(1200);
   const [withdraw, setWithdraw] = useState("");
   const [withdrawMoney, setWithdrawMoney] = useState(0);
+
+  // const [section, setSection] = useState([
+  //   { bgColor: "bg-red-300", section: "Deposit", value: depositMoney },
+  //   { bgColor: "bg-green-300", section: "Withdrow" },
+  //   {
+  //     bgColor: "bg-green-300",
+  //     section: "Balance",
+  //     value: withdrawMoney,
+  //   },
+  // ]);
+
+  // const chars = [
+  //   { bgColor: "bg-red-300", section: "Deposit", fun: depositMoney },
+  //   { bgColor: "bg-green-300", section: "Withdrow" },
+  //   {
+  //     bgColor: "bg-green-300",
+  //     section: "Balance",
+  //     fun: withdrawMoney,
+  //   },
+  // ];
 
   function handleDepositBtn() {
     setDepositMoney((preValue) => {
@@ -35,6 +56,8 @@ const Bank = () => {
     setWithdraw("");
   }
 
+  const Id = useId();
+  console.log(Id);
   return (
     <div>
       <header>
@@ -48,7 +71,11 @@ const Bank = () => {
           <div className="grid grid-cols-3 gap-4 text-white">
             {/* ---------Deposit-Amount---------- */}
 
-            {/* <div className="bg-blue-300 p-8 rounded shadow hover:shadow-lg">
+            <div
+              className={`${
+                depositMoney > 0 ? "bg-green-300" : "bg-red-300"
+              } p-8 rounded shadow hover:shadow-lg`}
+            >
               <h3 className="text-2xl">Deposit</h3>
               <h4 className="text-4xl">
                 $
@@ -56,13 +83,19 @@ const Bank = () => {
                   {depositMoney ? depositMoney : "00"}
                 </span>
               </h4>
-            </div> */}
+            </div>
 
-            <ShowData depositMoney={depositMoney} />
+            {/* {section.map((char) => (
+              <ShowData
+                key={useId()}
+                // depositMoney={depositMoney}
+                char={char}
+              />
+            ))} */}
 
             {/* Withdraw-Amount */}
 
-            <div className="bg-green-300 p-8 rounded shadow hover:shadow-lg">
+            <div className="bg-yellow-300 p-8 rounded shadow hover:shadow-lg">
               <h3 className="text-2xl">Withdraw</h3>
               <h4 className="text-4xl">
                 $
@@ -73,7 +106,11 @@ const Bank = () => {
             </div>
 
             {/* //Balance-Amount */}
-            <div className="bg-yellow-300 p-8 rounded shadow hover:shadow-lg">
+            <div
+              className={`${
+                blanceMoney > 300 ? "bg-green-300" : "bg-red-300"
+              } p-8 rounded shadow hover:shadow-lg`}
+            >
               <h3 className="text-2xl">Balance</h3>
               <h4 className="text-4xl">
                 $<span id="balance-amount">{blanceMoney}</span>
